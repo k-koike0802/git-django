@@ -1,24 +1,76 @@
-<html>
+<!DOCTYPE html>
+<html lang="ja">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
 <body>
-    <div class="memo-form">
+  <div class="fild">
+    <div class="about">
+      <h1>メモ帳アプリ</h1>
+    </div>
+
+    <div class="text-memo">
       <h3>メモ内容</h3>
       <form action="{% url 'post' %}" method="post">
         {% csrf_token %}
-        <div class="text-memo">
-          {{ form.content }}
-        </div>
+        {{ form.content }}
         <div class="post-form">
             <input type="submit" value="登録" class="post-botton">
         </div>
       </form>
     </div>
-  <div class="top_box">
-    {% for memo in memos %}
-    <div>
-      <p>{{ memo.content }}</p>
-      <p>{{ memo.update_datetime|date:"Y/m/d H:m:s" }}</p>
+    
+    <form action="{% url 'set_record_number' %}" method="post">
+      {% csrf_token %}
+      {{ record_number_form.record_number }}
+    </form>
+
+    <form action="{% url 'set_order_option' %}" method="post">
+      {% csrf_token %}
+      {{ order_option_form.order_option }}
+    </form>
+    
+    <div class="text-memo">
+      <h3>メモ内容一覧</h3>
     </div>
-    {% endfor %}
+
+
+    <div class="memo-list">
+    {% for memo in page %}
+    <div class="top_list">
+      <div class="top_time">
+        <p>{{ memo.update_datetime|date:"Y/m/d H:m:s" }}</p>
+      </div>
+      <div class="top_content">
+        <p>{{ memo.content }}</p>
+      </div>
+    </div>
+    {% endfor %}  
+    </div>
+  
+    <div class="pagination">
+      {% if page.has_previous == True %}
+        <a href="{% url 'index' %}{{ page.previous_page_number }}">{{ "前へ" }}</a>
+      {% endif %}
+      {% for num in page.paginator.page_range %}
+          {% if page.number == num %}
+              <span class="current">{{ page.number }}</span>
+          {% else %}
+              <a href="{% url 'index' %}{{ num }}">{{ num }}</a>
+          {% endif %}
+      {% endfor %}
+      {% if page.has_next == True %}
+        <a href="{% url 'index' %}{{ page.next_page_number }}">{{ "次へ" }}</a>
+      {% endif %}
+    </div>
   </div>
+
 </body>
 </html>

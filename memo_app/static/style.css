@@ -1,0 +1,56 @@
+.fild{
+    width: 700px;
+    height: auto;
+    text-align: center;
+    border: solid;
+    margin: 10px auto;
+}
+
+
+.about{
+    margin-top:20px;
+    font-size: 20px;
+}
+
+.about h1{
+    font-weight: bold;
+}
+
+.text-memo{
+    margin-top: 30px;
+}
+
+.memo-form{
+    width: 300px;
+    height: 200px;
+}
+
+.option-form{
+    width: 200px;
+    margin-top: 20px;
+}
+
+.memo-list{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.top_list{
+    border-bottom: 1px black solid;
+    margin-top: 20px;
+    padding: 0px 20px 5px 20px;
+    text-align: left;
+}
+
+.top_time{
+    font-weight: bold;
+}
+
+.top_content{
+    margin-top: 2px;
+}
+
+.pagination{
+    margin-top: 20px;
+}
